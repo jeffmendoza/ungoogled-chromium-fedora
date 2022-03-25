@@ -13,20 +13,27 @@ jobs:
     container: quay.io/fedora/fedora:35-x86_64
     steps:
     - uses: actions/checkout@v3
-    - run: |
-        cat /etc/redhat-release
-        ls
-        pwd
+    - name: build
+      run: |
+        echo ## Install tools
         dnf install -y rpmdevtools wget dnf-plugin-builddep
+        echo ## Setup tree
         rpmdev-setuptree
         cp ungoogled-chromium.spec ~/rpmbuild/SPECS/
         cp -r * ~/rpmbuild/SOURCES/
+	pushd ~/rpmbuild/
+	pushd SOURCES/
         wget https://github.com/Eloston/ungoogled-chromium/archive/${VERSION}/ungoogled-chromium-${VERSION}.tar.gz
-        mv ungoogled-chromium-${VERSION}.tar.gz ~/rpmbuild/SOURCES/
         wget https://chromium.googlesource.com/chromium/tools/depot_tools/+archive/a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-        mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz ~/rpmbuild/SOURCES/depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-        dnf builddep -y  ~/rpmbuild/SPECS/ungoogled-chromium.spec
-        rpmbuild -bb ~/rpmbuild/SPECS/ungoogled-chromium.spec
+        mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+	popd
+        echo ## Tree ready
+	find
+        echo ## Install buildeps
+        dnf builddep -y  SPECS/ungoogled-chromium.spec
+        echo ## Do build
+        rpmbuild -bb --undefine=_disable_source_fetch SPECS/ungoogled-chromium.spec
+	popd
     - uses: actions/upload-artifact@v3
       with:
         name: rpm
