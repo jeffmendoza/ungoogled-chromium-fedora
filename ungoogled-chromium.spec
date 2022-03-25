@@ -527,7 +527,7 @@ Requires: minizip-compat%{_isa}
 
 echo ---in prep
 %setup -q -T -n ungoogled-chromium-%{ungoogled_chromium_revision} -b 300
-%setup -q -T -n depot_tools-%{depot_tools_revision} -b 2
+%setup -q -T -c depot_tools-%{depot_tools_revision} -b 2
 %setup -q -n chromium-%{version}
 echo ---done setup
 
