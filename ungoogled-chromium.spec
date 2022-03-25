@@ -138,7 +138,7 @@ BuildRequires:  libicu-devel >= 5.4
 #Build with debugging symbols
 %global debug_pkg 0
 
-%global majorversion 99
+%global majorversion 98
 %global revision 1
 
 # Depot tools revision
@@ -149,7 +149,7 @@ Name:		ungoogled-chromium%{nsuffix}
 %else
 Name:		ungoogled-chromium
 %endif
-Version:	%{majorversion}.0.4844.82
+Version:	%{majorversion}.0.4758.80
 Release:	1%{?dist}.%{revision}
 %if %{?freeworld}
 # chromium-freeworld
@@ -263,7 +263,7 @@ Source20:	https://www.x.org/releases/individual/proto/xcb-proto-1.14.tar.xz
 Source22:       ungoogled-chromium.appdata.xml
 
 # ungoogled-chromium source
-%global ungoogled_chromium_revision 99.0.4844.82-1
+%global ungoogled_chromium_revision 98.0.4758.80-1
 Source300:      https://github.com/Eloston/ungoogled-chromium/archive/%{ungoogled_chromium_revision}/ungoogled-chromium-%{ungoogled_chromium_revision}.tar.gz
 
 BuildRequires:	llvm
@@ -524,12 +524,9 @@ Requires: minizip-compat%{_isa}
 
 ############################################PREP###########################################################
 %prep
-
-echo ---in prep
 %setup -q -T -n ungoogled-chromium-%{ungoogled_chromium_revision} -b 300
 %setup -q -T -c depot_tools-%{depot_tools_revision} -b 2
 %setup -q -n chromium-%{version}
-echo ---done setup
 
 %global ungoogled_chromium_root %{_builddir}/ungoogled-chromium-%{ungoogled_chromium_revision}
 
@@ -559,8 +556,6 @@ ln -s depot_tools-%{depot_tools_revision} ../depot_tools
 %if 0%{?build_with_python3}
 %patch11 -p1 -b .py3
 %endif
-
-echo ---done first patches
 
 # Short term fixes (usually gcc and backports)
 %if 0%{?fedora}
