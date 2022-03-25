@@ -28,6 +28,7 @@ jobs:
         mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         gunzip depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar
+        wget https://www.x.org/releases/individual/proto/xcb-proto-1.14.tar.xz
         popd
         echo ## Tree ready
         find
