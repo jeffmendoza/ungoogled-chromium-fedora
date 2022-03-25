@@ -21,19 +21,19 @@ jobs:
         rpmdev-setuptree
         cp ungoogled-chromium.spec ~/rpmbuild/SPECS/
         cp -r * ~/rpmbuild/SOURCES/
-	pushd ~/rpmbuild/
-	pushd SOURCES/
+        pushd ~/rpmbuild/
+        pushd SOURCES/
         wget https://github.com/Eloston/ungoogled-chromium/archive/${VERSION}/ungoogled-chromium-${VERSION}.tar.gz
         wget https://chromium.googlesource.com/chromium/tools/depot_tools/+archive/a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-	popd
+        popd
         echo ## Tree ready
-	find
+        find
         echo ## Install buildeps
         dnf builddep -y  SPECS/ungoogled-chromium.spec
         echo ## Do build
         rpmbuild -bb --undefine=_disable_source_fetch SPECS/ungoogled-chromium.spec
-	popd
+        popd
     - uses: actions/upload-artifact@v3
       with:
         name: rpm
