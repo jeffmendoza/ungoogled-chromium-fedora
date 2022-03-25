@@ -524,9 +524,12 @@ Requires: minizip-compat%{_isa}
 
 ############################################PREP###########################################################
 %prep
+
+echo ---in prep
 %setup -q -T -n ungoogled-chromium-%{ungoogled_chromium_revision} -b 300
 %setup -q -T -n depot_tools-%{depot_tools_revision} -b 2
 %setup -q -n chromium-%{version}
+echo ---done setup
 
 %global ungoogled_chromium_root %{_builddir}/ungoogled-chromium-%{ungoogled_chromium_revision}
 
@@ -556,6 +559,8 @@ ln -s depot_tools-%{depot_tools_revision} ../depot_tools
 %if 0%{?build_with_python3}
 %patch11 -p1 -b .py3
 %endif
+
+echo ---done first patches
 
 # Short term fixes (usually gcc and backports)
 %if 0%{?fedora}

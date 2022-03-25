@@ -15,9 +15,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: build
       run: |
-        echo ## Install tools
+        echo -- Install tools
         dnf install -y rpmdevtools wget dnf-plugin-builddep
-        echo ## Setup tree
+        echo -- Setup tree
         rpmdev-setuptree
         cp ungoogled-chromium.spec ~/rpmbuild/SPECS/
         cp -r * ~/rpmbuild/SOURCES/
@@ -28,13 +28,12 @@ jobs:
         mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         gunzip depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar
-        wget https://www.x.org/releases/individual/proto/xcb-proto-1.14.tar.xz
         popd
-        echo ## Tree ready
+        echo -- Tree ready
         find
-        echo ## Install buildeps
+        echo -- Install buildeps
         dnf builddep -y  SPECS/ungoogled-chromium.spec
-        echo ## Do build
+        echo -- Do build
         rpmbuild -bb --undefine=_disable_source_fetch SPECS/ungoogled-chromium.spec
         popd
     - uses: actions/upload-artifact@v3
