@@ -26,8 +26,8 @@ jobs:
         wget https://github.com/Eloston/ungoogled-chromium/archive/${VERSION}/ungoogled-chromium-${VERSION}.tar.gz
         wget https://chromium.googlesource.com/chromium/tools/depot_tools/+archive/a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
         mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-	gunzip depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-	xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar
+        gunzip depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+        xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar
         popd
         echo ## Tree ready
         find
