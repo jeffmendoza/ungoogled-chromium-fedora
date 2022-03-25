@@ -3,12 +3,31 @@ on:
   push:
     branches:
     - master
+env:
+  VERSION: 99.0.4844.82-1
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
     container: quay.io/fedora/fedora:35-x86_64
     steps:
     - uses: actions/checkout@v3
-    - run: cat /etc/redhat-release
-    - run: ls
-    - run: pwd
+    - run: |
+        cat /etc/redhat-release
+        ls
+        pwd
+        dnf install -y rpmdevtools wget
+        rpmdev-setuptree
+        cp ungoogled-chromium.spec ~/rpmbuild/SPECS/
+        cp -r * ~/rpmbuild/SOURCES/
+        wget https://github.com/Eloston/ungoogled-chromium/archive/${VERSION}/ungoogled-chromium-${VERSION}.tar.gz
+        mv ungoogled-chromium-${VERSION}.tar.gz ~/rpmbuild/SOURCES/
+        wget https://chromium.googlesource.com/chromium/tools/depot_tools/+archive/a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+        mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz ~/rpmbuild/SOURCES/depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+        dnf builddep -y  ~/rpmbuild/SPECS/ungoogled-chromium.spec
+        rpmbuild -bb ~/rpmbuild/SPECS/ungoogled-chromium.spec
+    - uses: actions/upload-artifact@v3
+      with:
+        name: rpm
+        path: ~/rpmbuild/RPMS/*

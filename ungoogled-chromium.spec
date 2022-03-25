@@ -47,7 +47,7 @@
 %global build_clear_key_cdm 1
 
 # NEVER EVER EVER turn this on in official builds
-%global freeworld 0
+%global freeworld 1
 %if %{freeworld}
 %global lsuffix freeworld
 %global nsuffix -freeworld
@@ -138,7 +138,7 @@ BuildRequires:  libicu-devel >= 5.4
 #Build with debugging symbols
 %global debug_pkg 0
 
-%global majorversion 98
+%global majorversion 99
 %global revision 1
 
 # Depot tools revision
@@ -149,7 +149,7 @@ Name:		ungoogled-chromium%{nsuffix}
 %else
 Name:		ungoogled-chromium
 %endif
-Version:	%{majorversion}.0.4758.80
+Version:	%{majorversion}.0.4844.82
 Release:	1%{?dist}.%{revision}
 %if %{?freeworld}
 # chromium-freeworld
