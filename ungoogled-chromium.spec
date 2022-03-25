@@ -525,8 +525,7 @@ Requires: minizip-compat%{_isa}
 ############################################PREP###########################################################
 %prep
 %setup -q -T -n ungoogled-chromium-%{ungoogled_chromium_revision} -b 300
-%setup -q -T -c depot_tools-%{depot_tools_revision} -b 2
-cd ..
+%setup -q -T -n depot_tools-%{depot_tools_revision} -b 2
 %setup -q -n chromium-%{version}
 
 %global ungoogled_chromium_root %{_builddir}/ungoogled-chromium-%{ungoogled_chromium_revision}

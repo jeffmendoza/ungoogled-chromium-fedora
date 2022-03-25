@@ -21,10 +21,14 @@ jobs:
         cp -r * ~/rpmbuild/SOURCES/
         pushd ~/rpmbuild/
         pushd SOURCES/
+        mkdir depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a
+        pushd depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a
         wget https://chromium.googlesource.com/chromium/tools/depot_tools/+archive/a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-        mv a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-        gunzip depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
-        xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar
+        tar -zxf a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+        rm a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.gz
+        popd
+        tar -cJf depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a.tar.xz depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a
+        rm -rf depot_tools-a8c66d0dabec812f47b6f2a4639baca46b9b4d7a
         popd
         echo -- Tree ready
         find
